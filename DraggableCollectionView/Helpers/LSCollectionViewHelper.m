@@ -78,6 +78,13 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
     return self;
 }
 
+- (void)dealloc
+{
+    if (_collectionView) {
+        [_collectionView removeObserver:self forKeyPath:@"collectionViewLayout"];
+    }
+}
+
 - (LSCollectionViewLayoutHelper *)layoutHelper
 {
     return [(id <UICollectionViewLayout_Warpable>)self.collectionView.collectionViewLayout layoutHelper];
