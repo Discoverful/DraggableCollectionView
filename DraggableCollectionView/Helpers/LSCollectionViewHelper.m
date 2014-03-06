@@ -66,13 +66,15 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
         [_collectionView addGestureRecognizer:_panPressGestureRecognizer];
         
+        /*
         for (UIGestureRecognizer *gestureRecognizer in _collectionView.gestureRecognizers) {
             if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
                 [gestureRecognizer requireGestureRecognizerToFail:_longPressGestureRecognizer];
                 break;
             }
         }
-        
+        */
+
         [self layoutChanged];
     }
     return self;
@@ -80,9 +82,12 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
 - (void)dealloc
 {
-    if (_collectionView) {
-        [_collectionView removeObserver:self forKeyPath:@"collectionViewLayout"];
-    }
+    [_collectionView removeObserver:self
+                               forKeyPath:@"collectionViewLayout"
+                                  context:&kObservingCollectionViewLayoutContext];
+    
+    [_collectionView removeGestureRecognizer:_longPressGestureRecognizer];
+    [_collectionView removeGestureRecognizer:_panPressGestureRecognizer];
 }
 
 - (LSCollectionViewLayoutHelper *)layoutHelper

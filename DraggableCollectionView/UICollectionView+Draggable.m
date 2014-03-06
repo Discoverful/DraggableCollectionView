@@ -20,6 +20,13 @@
     return helper;
 }
 
+- (void)removeFromSuperview
+{
+    [super removeFromSuperview];
+
+    objc_setAssociatedObject(self, "LSCollectionViewHelper", nil, OBJC_ASSOCIATION_ASSIGN);
+}
+
 - (BOOL)draggable
 {
     return [self getHelper].enabled;
