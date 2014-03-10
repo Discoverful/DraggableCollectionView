@@ -20,11 +20,11 @@
     return helper;
 }
 
-- (void)removeFromSuperview
+- (void)dealloc
 {
-    [super removeFromSuperview];
+    LSCollectionViewHelper * helper = objc_getAssociatedObject(self, "LSCollectionViewHelper");
 
-    objc_setAssociatedObject(self, "LSCollectionViewHelper", nil, OBJC_ASSOCIATION_ASSIGN);
+    [helper cleanup:self];
 }
 
 - (BOOL)draggable

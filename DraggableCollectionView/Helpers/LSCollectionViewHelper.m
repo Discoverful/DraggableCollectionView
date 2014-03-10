@@ -80,14 +80,14 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
     return self;
 }
 
-- (void)dealloc
+- (void)cleanup:(UICollectionView *)collectionView
 {
-    [_collectionView removeObserver:self
-                               forKeyPath:@"collectionViewLayout"
-                                  context:&kObservingCollectionViewLayoutContext];
+    [collectionView removeObserver:self
+                        forKeyPath:@"collectionViewLayout"
+                           context:&kObservingCollectionViewLayoutContext];
     
-    [_collectionView removeGestureRecognizer:_longPressGestureRecognizer];
-    [_collectionView removeGestureRecognizer:_panPressGestureRecognizer];
+    [collectionView removeGestureRecognizer:_longPressGestureRecognizer];
+    [collectionView removeGestureRecognizer:_panPressGestureRecognizer];
 }
 
 - (LSCollectionViewLayoutHelper *)layoutHelper
