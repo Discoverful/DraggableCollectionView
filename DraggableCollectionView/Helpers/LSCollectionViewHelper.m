@@ -193,18 +193,20 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
         if (i == self.layoutHelper.fromIndexPath.section) {
             continue;
         }
+
         NSInteger items = [self.collectionView numberOfItemsInSection:i];
-        NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:items inSection:i];
         UICollectionViewLayoutAttributes *layoutAttr;
         CGFloat xd, yd;
         
         if (items > 0) {
+            NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:items-1 inSection:i];
             layoutAttr = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:nextIndexPath];
             xd = layoutAttr.center.x - point.x;
             yd = layoutAttr.center.y - point.y;
         } else {
             // Trying to use layoutAttributesForItemAtIndexPath while section is empty causes EXC_ARITHMETIC (division by zero items)
             // So we're going to ask for the header instead. It doesn't have to exist.
+            NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:0 inSection:i];
             layoutAttr = [self.collectionView.collectionViewLayout layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                                                                                   atIndexPath:nextIndexPath];
             xd = layoutAttr.frame.origin.x - point.x;
