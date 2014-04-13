@@ -54,11 +54,20 @@
             continue;
         }
         if([layoutAttributes.indexPath isEqual:indexPathToRemove]) {
+            NSInteger numberOfItems = [collectionView numberOfItemsInSection:toIndexPath.section];
             // Remove item in source section and insert item in target section
-            layoutAttributes.indexPath = [NSIndexPath indexPathForItem:[collectionView numberOfItemsInSection:toIndexPath.section]
+            layoutAttributes.indexPath = [NSIndexPath indexPathForItem:numberOfItems
                                                              inSection:toIndexPath.section];
             if (layoutAttributes.indexPath.item != 0) {
-                layoutAttributes.center = [self.collectionViewLayout layoutAttributesForItemAtIndexPath:layoutAttributes.indexPath].center;
+                // This indexPath doesn't really exist so we should not ask custom layout for its attributes.
+                // UICollectionViewFlowlayout is ok with it but NHBalancedFlowLayout cannot handle it.
+                NSIndexPath * lastItemInSection = [NSIndexPath indexPathForItem:numberOfItems - 1
+                                                                      inSection:toIndexPath.section];
+                UICollectionViewLayoutAttributes * lastItemAttributes = [self.collectionViewLayout layoutAttributesForItemAtIndexPath:lastItemInSection];
+                CGRect frame = lastItemAttributes.frame;
+                frame.origin.x = collectionView.frame.size.width;
+
+                layoutAttributes.frame = frame;
             }
         }
         NSIndexPath *indexPath = layoutAttributes.indexPath;
