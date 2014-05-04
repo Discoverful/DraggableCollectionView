@@ -10,9 +10,7 @@
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView;
 
-- (void)cleanup:(UICollectionView *)collectionView;
-
-@property (nonatomic, readonly, weak) UICollectionView *collectionView;
+@property (nonatomic, readonly, assign) UICollectionView * collectionView;
 @property (nonatomic, readonly) UIGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic, readonly) UIGestureRecognizer *panPressGestureRecognizer;
 @property (nonatomic, assign) UIEdgeInsets scrollingEdgeInsets;

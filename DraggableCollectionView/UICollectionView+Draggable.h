@@ -13,6 +13,4 @@
 @property (nonatomic, assign) UIEdgeInsets scrollingEdgeInsets;
 @property (nonatomic, assign) CGFloat scrollingSpeed;
 
-- (void)cleanup; // Call before UICollectionView dealloc
-
 @end

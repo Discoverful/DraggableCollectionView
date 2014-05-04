@@ -20,13 +20,6 @@
     return helper;
 }
 
-- (void)dealloc
-{
-    LSCollectionViewHelper * helper = objc_getAssociatedObject(self, "LSCollectionViewHelper");
-
-    [helper cleanup:self];
-}
-
 - (BOOL)draggable
 {
     return [self getHelper].enabled;
